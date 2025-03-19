@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: time-server
+  namespace: my-app
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: time-server
+  template: 
+    metadata: 
+      labels: 
+        app: time-server
+    spec: 
+      containers: 
+        - name: time-server
+          image: ifilyaninitmo/time-server-mega-itmo:main
+          ports: 
+            - containerPort: 8001
+          env: 
+            - name: MONGODB_CONN_STR
+              value: "mongodb://mongodb:27017/time"

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: auth-server
+  namespace: my-app
+spec: 
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: auth-server
+  template: 
+    metadata: 
+      labels: 
+        app: auth-server
+    spec: 
+      containers: 
+        - name: auth-server
+          image: ifilyaninitmo/auth-server-mega-itmo:main
+          ports: 
+            - containerPort: 8000
+          env: 
+            - name: MONGODB_CONN_STR
+              value: "mongodb://mongodb:27017/auth"
+            - name: TIMESERVER_URL
+              value: "http://time-server:8001"
